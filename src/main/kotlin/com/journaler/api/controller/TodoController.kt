@@ -2,6 +2,7 @@ package com.journaler.api.controller
 
 import com.journaler.api.data.Todo
 import com.journaler.api.service.TodoService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType
 import org.springframework.http.MediaTypeEditor
@@ -12,6 +13,7 @@ import java.util.*
 @RequestMapping("/todos")
 class TodoController {
 
+    @Autowired
     private lateinit var service: TodoService
 
     /**
@@ -20,7 +22,7 @@ class TodoController {
     @GetMapping(
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun getTodos(): List<Todo> = service.getTodos()
+    fun getTodos(): Iterable<Todo> = service.getTodos()
 
     /**
      * Insert item.
@@ -42,7 +44,7 @@ class TodoController {
             value = "/{id}",
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun deleteTodd(@PathVariable(name = "id") id: String): Boolean = service.deleteTodo(id)
+    fun deleteTodd(@PathVariable(name = "id") id: String) = service.deleteTodo(id)
 
     /**
      * Update item.
@@ -53,5 +55,5 @@ class TodoController {
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE),
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun updateTodo(@RequestBody todo: Todo): Boolean = service.updateTodo(todo)
+    fun updateTodo(@RequestBody todo: Todo): Todo = service.updateTodo(todo)
 }
