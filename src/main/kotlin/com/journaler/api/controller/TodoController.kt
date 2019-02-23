@@ -1,6 +1,7 @@
 package com.journaler.api.controller
 
 import com.journaler.api.data.Todo
+import com.journaler.api.data.TodoDTO
 import com.journaler.api.service.TodoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -22,7 +23,7 @@ class TodoController {
     @GetMapping(
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun getTodos(): Iterable<Todo> = service.getTodos()
+    fun getTodos() = service.getTodos()
 
     /**
      * Insert item.
@@ -33,8 +34,8 @@ class TodoController {
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
     fun insertTodo(
-            @RequestBody todo: Todo
-    ): Todo = service.insertTodo(todo)
+            @RequestBody todo: TodoDTO
+    ) = service.insertTodo(todo)
 
     /**
      * Remove item by Id.
@@ -55,5 +56,5 @@ class TodoController {
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE),
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun updateTodo(@RequestBody todo: Todo): Todo = service.updateTodo(todo)
+    fun updateTodo(@RequestBody todo: TodoDTO) = service.updateTodo(todo)
 }

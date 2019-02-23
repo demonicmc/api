@@ -1,6 +1,7 @@
 package com.journaler.api.controller
 
 import com.journaler.api.data.Note
+import com.journaler.api.data.NoteDTO
 import com.journaler.api.service.NoteService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -19,7 +20,7 @@ class NoteController {
     @GetMapping(
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun getNotes(): Iterable<Note> = service.getNotes()
+    fun getNotes() = service.getNotes()
 
     /**
      * Insert note.
@@ -30,8 +31,8 @@ class NoteController {
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
     fun insertNote(
-            @RequestBody note: Note
-    ): Note = service.insertNote(note)
+            @RequestBody note: NoteDTO
+    ) = service.insertNote(note)
 
     /**
      * Remove note by Id.
@@ -52,7 +53,7 @@ class NoteController {
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE),
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
-    fun updateNote(@RequestBody note: Note): Note = service.updateNote(note)
+    fun updateNote(@RequestBody note: NoteDTO) = service.updateNote(note)
 
 
 }
