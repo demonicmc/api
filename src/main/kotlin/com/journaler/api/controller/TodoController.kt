@@ -9,6 +9,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.MediaTypeEditor
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.validation.Payload
 
 @RestController
 @RequestMapping("/todos")
@@ -57,4 +58,8 @@ class TodoController {
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
     )
     fun updateTodo(@RequestBody todo: TodoDTO) = service.updateTodo(todo)
+
+    fun getTodosLaterThan(
+            @RequestBody payload: TodoLaterThanRequest
+    ): Iterable<TodoDTO> = service.getSheduledLaterThan(payload.date)
 }

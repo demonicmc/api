@@ -6,6 +6,7 @@ import com.journaler.api.service.NoteService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
+import javax.validation.Payload
 
 @RestController
 @RequestMapping("/notes")
@@ -55,5 +56,13 @@ class NoteController {
     )
     fun updateNote(@RequestBody note: NoteDTO) = service.updateNote(note)
 
+    @PostMapping(
+            value = "/by_title",
+            produces = arrayOf(MediaType.APPLICATION_JSON_VALUE),
+            consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE)
+    )
+    fun getTodosLaterThan(
+            @RequestBody payload: NoteFindByTitleRequest
+    ): Iterable<NoteDTO> = service.findByTitle(payload.title)
 
 }
