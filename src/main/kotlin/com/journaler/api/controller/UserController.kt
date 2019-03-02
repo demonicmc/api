@@ -6,7 +6,6 @@ import com.journaler.api.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
-import javax.websocket.server.PathParam
 
 @RestController
 @RequestMapping("/users")
@@ -38,6 +37,7 @@ class UserController {
             @RequestBody user: UserDTO
     ) = service.saveMember(user)
 
+
     @DeleteMapping(
             value = "/{id}",
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE)
@@ -52,5 +52,5 @@ class UserController {
     )
     fun updateUser(
             @RequestBody user: User
-    ) = service.updateUser(user)
+    ): User? = service.updateUser(user)
 }

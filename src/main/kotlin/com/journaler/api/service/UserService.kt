@@ -23,10 +23,10 @@ class UserService : UserDetailsService {
     fun saveMember(user: UserDTO): User {
         val member = Member()
         member.email = user.email
-        member.roles = "MEMBER"
         member.firstName = user.firstName
         member.lastName = user.lastName
         member.pwd = encoder.encode(user.password)
+        member.roles = "MEMBER"
         return repository.save(member)
     }
 
@@ -54,11 +54,8 @@ class UserService : UserDetailsService {
             user.modified = Date()
             return repository.save(user)
         }
-
         return null
     }
-
-    fun deleteUser(id: String) = repository.deleteById(id)
 
     fun getUsers() = repository.findAll().map { it ->
         UserDetailsDTO(
@@ -75,4 +72,6 @@ class UserService : UserDetailsService {
                 it.modified
         )
     }
+
+    fun deleteUser(id: String) = repository.deleteById(id)
 }
